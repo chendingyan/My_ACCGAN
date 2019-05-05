@@ -1,0 +1,75 @@
+body {
+	text-align:center;
+  font-size: 100%;
+  counter-reset: chapter ;
+  line-height: 180%;
+  letter-spacing: 1px;
+}
+
+textarea {
+  font-family: monospace, serif;
+}
+
+#container {
+	width: 95%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: left;
+}
+
+#title {
+	width: 310px ;
+	height: 60px ;
+	position: relative ;
+}
+
+#title h1 {
+	position: absolute;
+	top:20px;
+}
+
+  p
+, pre {
+  margin-bottom: 0.7em;
+}
+
+dd p {
+  margin-bottom: 0.7em;
+}
+
+p.notes {
+	padding-left: 1em;
+	text-indent: -1em;
+}
+
+dl {
+  border: dotted 1px gray;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-left: 1em;
+  color: black;
+}
+
+h3 {
+  counter-increment: chapter ;
+}
+ 
+h3:before {
+  content: counter(chapter) ". ";
+}
+
+h4 {
+  margin-top: 20px;
+}
+code {
+  white-space: pre;
+}
+
+.blue {
+  color: blue;
+}
