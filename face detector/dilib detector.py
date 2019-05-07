@@ -1,7 +1,8 @@
 import sys
 
 import dlib
-
+import numpy as np
+# import cv2
 from skimage import io
 
 # 使用dlib自带的frontal_face_detector作为我们的特征提取器
@@ -9,7 +10,7 @@ detector = dlib.get_frontal_face_detector()
 
 # 使用dlib提供的图片窗口
 win = dlib.image_window()
-
+path_save = "./"
 # sys.argv[]是用来获取命令行参数的，sys.argv[0]表示代码本身文件路径，所以参数从1开始向后依次获取图片路径
 for f in sys.argv[1:]:
     # 输出目前处理的图片地址
@@ -31,15 +32,36 @@ for f in sys.argv[1:]:
         print("dets{}".format(d))
         print("Detection {}: Left: {} Top: {} Right: {} Bottom: {}"
               .format(i, d.left(), d.top(), d.right(), d.bottom()))
+        # 读取人脸矩形的坐标
+        pos_start = tuple([d.left(), d.top()])
+        pos_end = tuple([d.right(), d.bottom()])
 
-    # 也可以获取比较全面的信息，如获取人脸与detector的匹配程度
-    dets, scores, idx = detector.run(img, 1)
-    for i, d in enumerate(dets):
-        print("Detection {}, dets{},score: {}, face_type:{}".format(i, d, scores[i], idx[i]))
+        # 计算人脸矩形大小
+        height = d.bottom() - d.top()
+        width = d.right() - d.left()
 
-        # 绘制图片(dlib的ui库可以直接绘制dets)
-    win.set_image(img)
-    win.add_overlay(dets)
+        # 生成新的空白图像
+        img_blank = np.zeros((height, width, 3), np.uint8)
 
+        # 将人脸写入空白图像
+        for m in range(height):
+            for n in range(width):
+                img_blank[m][n] = img[d.top() + m][d.left() + n]
+
+        # 保存人脸到本地
+        print("Save to:", path_save + "img_face_" + str(i + 1) + ".jpg")
+        io.imsave(path_save + "img_face_" + str(i + 1) + ".jpg", img_blank)
+  #   # 也可以获取比较全面的信息，如获取人脸与detector的匹配程度
+  #   dets, scores, idx = detector.run(img, 1)
+  #   for i, d in enumerate(dets):
+  #       print("Detection {}, dets{},score: {}, face_type:{}".format(i, d, scores[i], idx[i]))
+  #
+  #       # 绘制图片(dlib的ui库可以直接绘制dets)
+  #   win.set_image(img)
+  #   win.add_overlay(dets)
+  #
+    # win.set_image(img)
+    win.set_image(img_blank)
   #等待点击
     dlib.hit_enter_to_continue()
+
