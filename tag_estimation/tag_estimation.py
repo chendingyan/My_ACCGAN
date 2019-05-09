@@ -38,6 +38,8 @@ if __name__ == '__main__':
     year_dict = get_year_dict()
     files = os.listdir(anime_path)  # 得到文件夹下的所有文件名称
     for f in files:
+        print(f)
+
         year = year_dict[f[:-6]]
         path = anime_path+'/'+f
         print(path)
