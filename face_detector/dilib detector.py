@@ -16,6 +16,8 @@ detector = dlib.get_frontal_face_detector()
 # 使用dlib提供的图片窗口
 win = dlib.image_window()
 path_save = "./getchu_detector/"
+if not os.path.exists(path_save):
+    os.mkdir(path_save)
 # sys.argv[]是用来获取命令行参数的，sys.argv[0]表示代码本身文件路径，所以参数从1开始向后依次获取图片路径
 for f in files:
     # 输出目前处理的图片地址
