@@ -39,8 +39,9 @@ if __name__ == '__main__':
     files = os.listdir(anime_path)  # 得到文件夹下的所有文件名称
     for f in files:
         print(f)
+        f1 = f.split('_')
 
-        year = year_dict[f[:-6]]
+        year = year_dict[f1[0]]
         path = anime_path+'/'+f
         print(path)
         img = Image.open(path)
