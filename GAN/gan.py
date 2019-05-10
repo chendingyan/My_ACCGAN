@@ -41,7 +41,7 @@ tmp_path= './training_temp'
 
 
 if __DEBUG__:
-  batch_size = 10
+  batch_size = 64
   num_workers = 1
 #
 #
@@ -184,6 +184,8 @@ class SRGAN():
 
 
         if iteration % verbose_T == 0:
+          print('The iteration is now %d' %iteration)
+          print('The loss is %.4f, %.4f, %.4f, %.4f' %(real_loss_sum, fake_loss_sum, gradient_penalty, loss_g ))
           vutils.save_image(anime_img.data.view(batch_size, 3, anime_img.size(2), anime_img.size(3)),
                             os.path.join(tmp_path, 'real_image_{}.png'.format(str(iteration).zfill(8))))
           g_noise, fake_tag = utils.fake_generator(batch_size, noise_size, device)
