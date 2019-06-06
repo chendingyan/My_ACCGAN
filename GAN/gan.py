@@ -205,9 +205,15 @@ class SRGAN():
 
 
 if __name__ == '__main__':
-  if not os.path.exists(model_dump_path):
-    os.mkdir(model_dump_path)
-  if not os.path.exists(tmp_path):
-    os.mkdir(tmp_path)
+  # if not os.path.exists(model_dump_path):
+  #   os.mkdir(model_dump_path)
+  # if not os.path.exists(tmp_path):
+  #   os.mkdir(tmp_path)
   gan = SRGAN()
-  gan.train()
+  # gan.train()
+  checkpoint, checkpoint_name = gan.load_checkpoint('./gan_models')
+  epoch = checkpoint['epoch']
+  print(epoch)
+  dis = checkpoint['D']
+  gen = checkpoint['G']
+  # label_p, tag_p = self.D(anime_img)
