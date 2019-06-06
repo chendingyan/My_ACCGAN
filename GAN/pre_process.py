@@ -9,10 +9,10 @@ import utils
 
 aim_size = 128
 id = 1
-year = 1996
+year = 2005
 
-dump_filename = './anime_with_tag.dat'
-tag_path = '../tag_estimation/tags.txt'
+dump_filename = './anime_with_tag_new.dat'
+tag_path = '../tag_estimation/tags_new.txt'
 
 def get_info_list():
     info_list = []
