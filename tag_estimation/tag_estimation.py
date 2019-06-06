@@ -34,6 +34,8 @@ def get_year_dict():
 
 
 if __name__ == '__main__':
+    illust2vec = i2v.make_i2v_with_chainer(
+        "illust2vec_tag_ver200.caffemodel", "tag_list.json")
     tag_map = get_tag_map()
     year_dict = get_year_dict()
     files = os.listdir(anime_path)  # 得到文件夹下的所有文件名称
@@ -46,14 +48,15 @@ if __name__ == '__main__':
         print(path)
         img = Image.open(path)
 
-        illust2vec = i2v.make_i2v_with_chainer(
-            "illust2vec_tag_ver200.caffemodel", "tag_list.json")
+
 
         tags = illust2vec.estimate_specific_tags([img], tag_map)
         sort = sorted(tags[0].items(), key=lambda d: d[1], reverse=True)
-        tag_name = sort[0][0]
-        ff = open("tags.txt", "a+")  # 以追加的方式
-
-        ff.write(f[:-4] + '\t' + year + '\t' + tag_name + '\t' + path+ '\n')
-
+        print(sort[0][1])
+        if sort[0][1] > 0.25:
+            tag_name = sort[0][0]
+            ff = open("tags_new.txt", "a+")  # 以追加的方式
+            ff.write(f[:-4] + '\t' + year + '\t' + tag_name + '\t' + path+ '\n')
+        else:
+            print('No tag detect!!!!')
     ff.close()
